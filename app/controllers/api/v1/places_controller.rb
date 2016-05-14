@@ -1,0 +1,9 @@
+class Api::V1::PlacesController < ApplicationController
+
+  def index
+    @places = Place.all
+  end
+
+
+
+end

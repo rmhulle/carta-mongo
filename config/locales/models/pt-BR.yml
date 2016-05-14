@@ -1,0 +1,51 @@
+pt-BR:
+  mongoid:
+    attributes:
+      medicine:
+        name: Nome
+        salt: Sal
+        owner: Responsavel
+        description: Descrição
+        standard: Padronizado
+      offer:
+        avaiableHour: Horário
+        avaiableDay: Calendário
+        contact: Contato
+        requirement: Pré requisitos
+        place: Unidade
+      place:
+        name: Nome
+        description: Descrição
+        owner: Responsavel
+        cnes_id: Cód CNES
+        address: Endereço
+        phone: Telefone
+        openHour: Horário de Atendimento
+        openDay: Dias de Atendimento
+        offers: Ofertas
+      user:
+        email: Email
+        name: Nome
+        role: Papel
+        password: Senha
+      service:
+        name: Nome
+        description: Descrição
+        requirement: Pré requisitos
+        offers: Ofertas
+    models:
+      medicine:
+        one: Medicamento
+        other: Medicamentos
+      offer:
+        one: Oferta
+        other: Ofertas
+      place:
+        one: Unidade
+        other: Unidades
+      user:
+        one: Usuário
+        other: Usuários
+      service:
+        one: Serviço
+        other: Serviços
