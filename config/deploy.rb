@@ -8,7 +8,7 @@ require 'mina/rvm'
 set :domain, '159.203.97.203'
 
 # Caminho da pasta de deploy
-set :deploy_to, '/home/deploy/apps/carta-sesa'
+set :deploy_to, '/home/deploy/apps/carta-mongo'
 
 # Repositorio do seu github/gitlab/bitbucket
 set :repository, 'git@github.com:rmhulle/carta-mongo.git'
@@ -29,17 +29,19 @@ set :app_path, "#{deploy_to}/#{current_path}"
 set :stage, 'production'
 # Quantidade de releases para manter em producao
 set :keep_releases, 4
-
+set :rails_env, "production"
 # Seu usuario de deploy
 set :user, 'deploy'
+
 
 # PID do unicorn
 set :unicorn_pid, "#{deploy_to}/shared/pids/unicorn.pid"
 
 task :environment do
   # defina a versao do Ruby que vai usar e a gemset
-  invoke :'rvm:use[ruby-2.2.3@carta-sesa]'
+  invoke :'rvm:use[ruby-2.2.3@carta-mongo]'
 end
+
 
 task :setup => :environment do
   # Pastas compartilhadas
@@ -70,6 +72,8 @@ end
 desc "Deploys the current version to the server."
 task :deploy => :environment do
   to :before_hook do
+
+
     # Put things to run locally before ssh
   end
   deploy do
