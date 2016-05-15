@@ -36,7 +36,7 @@ gem 'icheck-rails'
 gem 'rails_admin_rollincode', :git => 'https://github.com/rmhulle/rails_admin_theme.git'
 gem 'rails_admin'
 gem "rails_admin_import", "~> 1.4"
-
+gem 'unicorn'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

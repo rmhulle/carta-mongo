@@ -1,0 +1,35 @@
+#docker-compose.yml
+# service configuration for our dockerized Rails app
+app:
+  # use the Dockerfile next to this file
+  build: .
+  # sources environment variable configuration for our app
+  env_file: .env
+  # rely on the RAILS_ENV value of the host machine
+  environment:
+    RAILS_ENV: $RAILS_ENV
+  # makes the app container aware of the DB container
+  links:
+    - db
+  # expose the port we configured Unicorn to bind to
+  ports:
+    - "3000"
+db:
+  image: mongo:3.3.5
+  command: mongod --smallfiles --quiet
+  volumes:
+    - /data/mongodb:/data/db
+  ports:
+    - "27017:27017"
+# service configuration for our web server
+web:
+  # set the build context to the root of the Rails app
+  build: .
+  # build with a different Dockerfile
+  dockerfile: config/containers/Dockerfile-nginx
+  # makes the web container aware of the app container
+  links:
+    - app
+  # expose the port we configured Nginx to bind to
+  ports:
+    - "80:80"
