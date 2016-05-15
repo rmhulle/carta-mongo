@@ -38,7 +38,7 @@ gem 'rails_admin'
 gem "rails_admin_import", "~> 1.4"
 
 gem 'mina-unicorn', require: false
-
+gem 'unicorn'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'mina'
@@ -54,5 +54,5 @@ group :development do
 end
 
 group :production do
-  gem 'unicorn'
+
 end
