@@ -21,7 +21,8 @@ set :port, '22'
 set :term_mode, nil
 
 # Caminho do RVM instalado. Ele ja assume que estara no caminho padrao. Caso nao, modifique aqui:
-# set :rvm_path, '/usr/local/rvm/bin/rvm'
+#rvm gemdir
+#set :rvm_path, '/usr/local/rvm/bin/rvm'
 
 # Arquivos compartilhados
 set :shared_paths, ['config/mongoid.yml' 'config/secrets.yml', 'log']
@@ -39,7 +40,7 @@ set :unicorn_pid, "#{deploy_to}/shared/pids/unicorn.pid"
 
 task :environment do
   # defina a versao do Ruby que vai usar e a gemset
-  invoke :'rvm:use[ruby-2.2.3@carta-mongo]'
+  invoke :'rvm:use[ruby-2.2.3]'
 end
 
 
@@ -82,7 +83,6 @@ task :deploy => :environment do
     invoke :'git:clone'
     invoke :'deploy:link_shared_paths'
     invoke :'bundle:install'
-
     invoke :'rails:assets_precompile'
     invoke :'deploy:cleanup'
 
