@@ -63,7 +63,7 @@ task :setup => :environment do
   queue! %[chmod g+rx,u+rwx "#{deploy_to}/#{shared_path}/sockets"]
 
   # YML
-  queue! %[touch "#{deploy_to}/#{shared_path}/config/mongo.yml"]
+  queue! %[touch "#{deploy_to}/#{shared_path}/config/mongoid.yml"]
   queue! %[touch "#{deploy_to}/#{shared_path}/config/secrets.yml"]
   queue  %[echo "-----> EDITE no seu servidor o arquivo '#{deploy_to}/#{shared_path}/config/mongoid.yml'."]
   queue  %[echo "-----> EDITE no seu servidor o arquivo '#{deploy_to}/#{shared_path}/config/secrets.yml'."]
