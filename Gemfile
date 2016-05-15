@@ -36,10 +36,12 @@ gem 'icheck-rails'
 gem 'rails_admin_rollincode', :git => 'https://github.com/rmhulle/rails_admin_theme.git'
 gem 'rails_admin'
 gem "rails_admin_import", "~> 1.4"
-gem 'unicorn'
+
+gem 'mina-unicorn', require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'mina'
   gem 'byebug'
 end
 
@@ -49,4 +51,8 @@ group :development do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+end
+
+group :production do
+  gem 'unicorn'
 end
