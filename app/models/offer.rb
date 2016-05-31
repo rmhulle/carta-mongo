@@ -1,16 +1,19 @@
 class Offer
 
 include Mongoid::Document
+include Mongoid::Timestamps
 
 
   field :contact, type: String
   field :requirement, type: String
   field :avaiableHour, type: String
   field :avaiableDay, type: String
+  field :incremental_id, type: Integer
 
   belongs_to :place
   belongs_to :service
-  
+
+  before_create :set_id
 
   rails_admin do
       navigation_label 'Serviços e Ofertas'
@@ -46,8 +49,12 @@ include Mongoid::Document
     end
 
 
-
-
+    def set_id
+        actual = Incremental.where(name: "offers").first
+        new_value = actual.value + 1
+        actual.update_attribute(:value, new_value)
+        self.incremental_id = new_value
+    end
 
 
 

@@ -3,7 +3,7 @@ app_dir = File.expand_path('../../', __FILE__)
 shared_dir = File.expand_path('../../../shared/', __FILE__)
 
 # Set unicorn options
-worker_processes 4
+worker_processes 2
 preload_app true
 timeout 30
 
@@ -39,4 +39,4 @@ end
 
 before_exec do |server|
   ENV['BUNDLE_GEMFILE'] = "#{app_dir}/Gemfile"
-end  
+end

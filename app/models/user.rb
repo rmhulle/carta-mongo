@@ -1,5 +1,6 @@
 class User
   include Mongoid::Document
+  include Mongoid::Timestamps
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -68,7 +69,11 @@ class User
       end
 
       show do
-        exclude_fields :id, :created_at, :updated_at,:remember_created_at,:last_sign_in_ip
+        exclude_fields :id,
+                       :created_at,
+                       :updated_at,
+                       :remember_created_at,
+                       :last_sign_in_ip
       end
       # object_label_method do
       #   :custom_label_method

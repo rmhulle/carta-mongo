@@ -1,22 +1,14 @@
-class Medicine
-
+class Requirement
   include Mongoid::Document
-  include Mongoid::Timestamps
-
-  field :name, type: String
-  field :salt, type: String
-  field :owner, type: String
-  field :description, type: String
-  field :standard, type: Boolean
+  field :url, type: String
+  field :requirement_type, type: String
+  field :first_time, type: String
+  field :monitoring, type: String
+  field :cid10, type: String
   field :incremental_id, type: Integer
 
-  has_many :presentations
-  has_many :requirements
-  has_many :pcdts
-
-  accepts_nested_attributes_for :requirements
-
   before_create :set_id
+  belongs_to :medicine, dependent: :destroy
 
   rails_admin do
 
@@ -39,12 +31,9 @@ class Medicine
 
     end
     def set_id
-        actual = Incremental.where(name: "medicines").first
+        actual = Incremental.where(name: "requirements").first
         new_value = actual.value + 1
         actual.update_attribute(:value, new_value)
         self.incremental_id = new_value
     end
-
-
-
 end

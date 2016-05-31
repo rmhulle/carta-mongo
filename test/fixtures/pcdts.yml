@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  clinical_situation: MyString
+  ministerial_order: MyString
+  order_url: MyString
+  order_date: MyString
+
+two:
+  clinical_situation: MyString
+  ministerial_order: MyString
+  order_url: MyString
+  order_date: MyString

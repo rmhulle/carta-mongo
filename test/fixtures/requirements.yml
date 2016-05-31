@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  url: MyString
+  requirement_type: MyString
+  first_time: MyString
+  monitoring: MyString
+  cid10: MyString
+
+two:
+  url: MyString
+  requirement_type: MyString
+  first_time: MyString
+  monitoring: MyString
+  cid10: MyString

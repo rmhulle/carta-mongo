@@ -1,23 +1,25 @@
-json.key_format! camelize: :lower
+# json.key_format! camelize: :lower
+
 json.array! @places do |place|
-  json.cnes_id      place.cnes_id
+json.set! :place do
+  json.id           place.incremental_id
   json.name         place.name
   json.description  place.description
-  json.address      place.address
   json.owner        place.owner
+  json.created_at   place.created_at
+  json.updated_at   place.updated_at
+  json.cnes_id      place.cnes_id
+  json.address      place.address
   json.phone        place.phone
   json.openHour     place.openHour
-  json.openDay      place.openDay
+  json.openDays     place.openDay
 
-  json.offers place.offers.each do |offer|
-
-    json.oid           offer.id
-
+  json.associations place.offers.each do |offer|
     #Fallback: caso não tenha nenhum dia da semana especifico do servico, utilizar o padrão do local
     if offer.avaiableDay == ""
-      json.avaiableDay place.openDay
+      json.avaiableDays place.openDay
     else
-      json.avaiableDay  offer.avaiableDay
+      json.avaiableDays  offer.avaiableDay
     end
 
     #Fallback: caso não tenha nenhum Horário especifico do servico, utilizar o padrão do local
@@ -34,19 +36,23 @@ json.array! @places do |place|
       json.contact  offer.contact
     end
 
+    json.updated_at offer.updated_at
     #Fallback: caso não tenha nenhum requisito especifico do local, utilizar o padrão do serviço
     if offer.requirement == ""
       json.requirement offer.service.requirement
     else
       json.requirement  offer.requirement
     end
-    json.services do
+    json.services_name do
+      json.id           offer.service.incremental_id
       json.name         offer.service.name
       json.description  offer.service.description
-      json.requirement  offer.service.requirement
+      json.service_type offer.service.service_type
+      json.access       offer.service.requirement
 
     end
 
   end
+end
 
 end

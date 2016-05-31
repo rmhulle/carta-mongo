@@ -89,9 +89,10 @@ task :deploy => :environment do
     to :launch do
 
       invoke :'unicorn:restart'
-      queue  'RAILS_ENV=production rake assets:precompile && bundle exec unicorn'
+      # queue RAILS_ENV=production bundle exec rake assets:precompile && bundle exec unicorn -E RAILS_ENV=production -D
       queue "mkdir -p #{deploy_to}/#{current_path}/tmp/"
       queue "touch #{deploy_to}/#{current_path}/tmp/restart.txt"
     end
-  end
+
+end
 end
