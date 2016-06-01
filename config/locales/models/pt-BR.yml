@@ -33,6 +33,24 @@ pt-BR:
         description: Descrição
         requirement: Pré requisitos
         offers: Ofertas
+      presentation:
+        name: Nome
+        presentation_type: Tipo de Apresentação
+        description: Descrição
+      pcdt:
+        clinical_situation: Situação Clínica
+        ministerial_order: Portaria
+        order_url: URL da Portaria
+        order_date: Data de Emissão da Portaria
+      requirement:
+        url: URL
+        requirement_type: Tipo de Requisisto
+        first_time: Primeira Retirada
+        monitoring: Renovação
+        cid10: CID 10
+      incremental:
+        name: Modelo
+        value: Valor
     models:
       medicine:
         one: Medicamento
@@ -49,3 +67,15 @@ pt-BR:
       service:
         one: Serviço
         other: Serviços
+      presentation:
+        one: Apresentação
+        other: Apresentações
+      pcdt:
+        one: Protocolo
+        other: Protocolos
+      requirement:
+        one: Requisito
+        other: Requisitos
+      incremental:
+        one: Contador
+        other: Contadores

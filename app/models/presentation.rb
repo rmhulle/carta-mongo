@@ -26,10 +26,13 @@ class Presentation
       show do
         exclude_fields :id, :created_at, :updated_at
       end
-      # object_label_method do
-      #   :custom_label_method
-      # end
+      object_label_method do
+         :custom_label_method
+       end
 
+    end
+    def custom_label_method
+      "#{self.name}"
     end
     def set_id
         actual = Incremental.where(name: "presentations").first

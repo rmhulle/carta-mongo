@@ -4,7 +4,7 @@ class Medicine
   include Mongoid::Timestamps
 
   field :name, type: String
-  field :salt, type: String
+
   field :owner, type: String
   field :description, type: String
   field :standard, type: Boolean

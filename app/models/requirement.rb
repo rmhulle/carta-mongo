@@ -25,11 +25,17 @@ class Requirement
       show do
         exclude_fields :id, :created_at, :updated_at, :incremental_id
       end
-      # object_label_method do
-      #   :custom_label_method
-      # end
+      object_label_method do
+         :custom_label_method
+       end
 
     end
+    def custom_label_method
+      "#{self.incremental_id}"
+    end
+
+
+
     def set_id
         actual = Incremental.where(name: "requirements").first
         new_value = actual.value + 1

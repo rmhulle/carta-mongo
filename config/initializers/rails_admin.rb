@@ -7,7 +7,7 @@ RailsAdmin.config do |config|
     warden.authenticate! scope: :user
   end
   config.current_user_method(&:current_user)
-  config.main_app_name = "Contratos SESA"
+  config.main_app_name = "Carta SESA"
   ## == Cancan ==
   # config.authorize_with :cancan
 
@@ -24,6 +24,7 @@ RailsAdmin.config do |config|
     index                         # mandatory
     new
     export
+    import
     bulk_delete
     show
     edit
@@ -39,7 +40,11 @@ RailsAdmin.config do |config|
   #   parent Region
   # end
 
-
+  # Optional:
+  # Configure global RailsAdminImport options
+  config.configure_with(:import) do |config|
+    config.logging = true
+  end
 
 
 end
