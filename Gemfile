@@ -37,8 +37,10 @@ gem 'rails_admin_rollincode', :git => 'https://github.com/rmhulle/rails_admin_th
 gem 'rails_admin'
 gem "rails_admin_import", "~> 1.4"
 
-gem 'mina-unicorn', require: false
+gem 'mina'
 gem 'unicorn'
+gem 'mina-unicorn', require: false
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

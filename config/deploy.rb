@@ -1,22 +1,25 @@
 require 'mina/bundler'
 require 'mina/rails'
 require 'mina/git'
+require 'mina/rbenv'
 require 'mina/unicorn'
-require 'mina/rvm'
+
 
 # IP do seu servidor
-set :domain, '159.203.97.203'
+set :domain, '107.170.24.134'
 
 # Caminho da pasta de deploy
-set :deploy_to, '/home/deploy/apps/carta-mongo'
+set :deploy_to, '/home/deployer/carta-mongo'
 
 # Repositorio do seu github/gitlab/bitbucket
 set :repository, 'git@github.com:rmhulle/carta-mongo.git'
 # Branch do projeto
-set :branch, 'master'
+set :branch, 'deploy'
+set :user, 'deployer'
 # Porta do seu servidor ssh
 set :port, '22'
-
+# PID do unicorn
+set :unicorn_pid, "#{deploy_to}/shared/pids/unicorn.pid"
 # Permitir por senha o deploy
 set :term_mode, nil
 
@@ -27,72 +30,45 @@ set :term_mode, nil
 # Arquivos compartilhados
 set :shared_paths, ['config/mongoid.yml' 'config/secrets.yml', 'log']
 set :app_path, "#{deploy_to}/#{current_path}"
-set :stage, 'production'
 # Quantidade de releases para manter em producao
 set :keep_releases, 4
-set :rails_env, "production"
-# Seu usuario de deploy
-set :user, 'deploy'
 
+  task :environment do
+    queue %{
+  echo "-----> Loading environment"
+  #{echo_cmd %[source ~/.bashrc]}
+  }
+    invoke :'rbenv:load'
+    # If you're using rbenv, use this to load the rbenv environment.
+    # Be sure to commit your .rbenv-version to your repository.
+  end
 
-# PID do unicorn
-set :unicorn_pid, "#{deploy_to}/shared/pids/unicorn.pid"
+  task :setup => :environment do
+    queue! %[mkdir -p "#{deploy_to}/shared/log"]
+    queue! %[chmod g+rx,u+rwx "#{deploy_to}/shared/log"]
 
-task :environment do
-  # defina a versao do Ruby que vai usar e a gemset
-  invoke :'rvm:use[ruby-2.2.3]'
-end
+    queue! %[mkdir -p "#{deploy_to}/shared/config"]
+    queue! %[chmod g+rx,u+rwx "#{deploy_to}/shared/config"]
 
+    queue! %[touch "#{deploy_to}/shared/config/mongoid.yml"]
+    queue  %[echo "-----> Be sure to edit 'shared/config/mongoid.yml'."]
 
-task :setup => :environment do
-  # Pastas compartilhadas
-  queue! %[mkdir -p "#{deploy_to}/#{shared_path}/log"]
-  queue! %[chmod g+rx,u+rwx "#{deploy_to}/#{shared_path}/log"]
+    queue! %[touch "#{deploy_to}/shared/config/secrets.yml"]
+    queue %[echo "-----> Be sure to edit 'shared/config/secrets.yml'."]
 
-  queue! %[mkdir -p "#{deploy_to}/#{shared_path}/config"]
-  queue! %[chmod g+rx,u+rwx "#{deploy_to}/#{shared_path}/config"]
-
-  # UNICORN
-  # /home/deploy/apps/<app>/shared/pids/unicorn.pid
-  #
-  queue! %[mkdir -p "#{deploy_to}/#{shared_path}/pids"]
-  queue! %[chmod g+rx,u+rwx "#{deploy_to}/#{shared_path}/pids"]
-
-  # /home/deploy/apps/<app>/shared/sockets/unicorn.sock
-  #
-  queue! %[mkdir -p "#{deploy_to}/#{shared_path}/sockets"]
-  queue! %[chmod g+rx,u+rwx "#{deploy_to}/#{shared_path}/sockets"]
-
-  # YML
-  queue! %[touch "#{deploy_to}/#{shared_path}/config/mongoid.yml"]
-  queue! %[touch "#{deploy_to}/#{shared_path}/config/secrets.yml"]
-  queue  %[echo "-----> EDITE no seu servidor o arquivo '#{deploy_to}/#{shared_path}/config/mongoid.yml'."]
-  queue  %[echo "-----> EDITE no seu servidor o arquivo '#{deploy_to}/#{shared_path}/config/secrets.yml'."]
-end
+  end
 
 desc "Deploys the current version to the server."
-task :deploy => :environment do
-  to :before_hook do
+  task :deploy => :environment do
+    deploy do
 
+      invoke :'git:clone'
+      invoke :'deploy:link_shared_paths'
+      invoke :'bundle:install'
+      invoke :'rails:assets_precompile'
 
-    # Put things to run locally before ssh
-  end
-  deploy do
-    # Put things that will set up an empty directory into a fully set-up
-    # instance of your project.
-    invoke :'git:clone'
-    invoke :'deploy:link_shared_paths'
-    invoke :'bundle:install'
-    invoke :'rails:assets_precompile'
-    invoke :'deploy:cleanup'
-
-    to :launch do
-
-      invoke :'unicorn:restart'
-      # queue RAILS_ENV=production bundle exec rake assets:precompile && bundle exec unicorn -E RAILS_ENV=production -D
-      queue "mkdir -p #{deploy_to}/#{current_path}/tmp/"
-      queue "touch #{deploy_to}/#{current_path}/tmp/restart.txt"
+      to :launch do
+        invoke :'unicorn:restart'
+      end
     end
-
-end
 end
