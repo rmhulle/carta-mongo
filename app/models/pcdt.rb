@@ -1,6 +1,7 @@
 class Pcdt
   include Mongoid::Document
   include Mongoid::Timestamps
+
   field :clinical_situation, type: String
   field :ministerial_order, type: String
   field :order_url, type: String
@@ -24,7 +25,7 @@ class Pcdt
       end
 
       show do
-        exclude_fields :id, :created_at, :updated_at
+        exclude_fields :id, :created_at, :updated_at, :incremental_id
       end
       object_label_method do
          :custom_label_method

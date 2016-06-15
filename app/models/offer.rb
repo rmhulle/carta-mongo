@@ -19,11 +19,11 @@ include Mongoid::Timestamps
       navigation_label 'Serviços e Ofertas'
 
       list do
-        exclude_fields :_id, :requirement, :service
+        exclude_fields :_id, :requirement, :service, :incremental_id
       end
 
       edit do
-        exclude_fields :created_at, :updated_at, :place
+        exclude_fields :created_at, :updated_at, :place, :incremental_id
         field :service do
           inline_add true
           inline_edit true
@@ -32,7 +32,7 @@ include Mongoid::Timestamps
       end
 
       show do
-        exclude_fields :created_at, :updated_at
+        exclude_fields :created_at, :updated_at, :incremental_id
       end
       object_label_method do
          :custom_label_method

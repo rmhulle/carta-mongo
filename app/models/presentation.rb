@@ -24,7 +24,7 @@ class Presentation
       end
 
       show do
-        exclude_fields :id, :created_at, :updated_at
+        exclude_fields :id, :created_at, :updated_at, :incremental_id
       end
       object_label_method do
          :custom_label_method
