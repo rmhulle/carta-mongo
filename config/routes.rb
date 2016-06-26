@@ -7,5 +7,9 @@ Rails.application.routes.draw do
       resources :places, only: [ :index ]
       resources :medicines, only: [ :index ]
     end # v1
+    namespace :v2 do
+      resources :places, only: [ :index ]
+      resources :medicines, only: [ :index ]
+    end # v1
   end # api
 end

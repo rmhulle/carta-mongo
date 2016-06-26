@@ -7,21 +7,32 @@ class Pcdt
   field :order_url, type: String
   field :order_date, type: String
   field :incremental_id, type: Integer
+  field :visible, type: Boolean, default: false
 
   before_create :set_id
-  belongs_to :medicine, dependent: :destroy
 
+  has_and_belongs_to_many :medicines
 
   rails_admin do
 
       navigation_label 'Farmácia'
 
       list do
-        exclude_fields :_id, :created_at, :updated_at, :incremental_id
+        field :clinical_situation
+        field :ministerial_order
+        field :order_date
+        field :medicines
+        field :visible, :toggle
+
       end
 
       edit do
-        exclude_fields :created_at, :updated_at, :incremental_id
+        field :clinical_situation, :string
+        field :ministerial_order, :string
+        field :order_url, :string
+        field :order_date
+        field :medicines
+        field :visible
       end
 
       show do

@@ -7,12 +7,19 @@ pt-BR:
         owner: Responsavel
         description: Descrição
         standard: Padronizado
+        visible: Publicar
+        pcdts: Protocolos Clinicos
+        presentations: Apresentações
+        medical_url: URL Médico
+        citizen_url: URL Cidadão
       offer:
         avaiableHour: Horário
         avaiableDay: Calendário
         contact: Contato
         requirement: Pré requisitos
         place: Unidade
+        service: Serviço
+        visible: Publicar
       place:
         name: Nome
         description: Descrição
@@ -23,31 +30,38 @@ pt-BR:
         openHour: Horário de Atendimento
         openDay: Dias de Atendimento
         offers: Ofertas
+        visible: Publicar
       user:
         email: Email
         name: Nome
         role: Papel
         password: Senha
+        visible: Publicar
       service:
         name: Nome
         description: Descrição
         requirement: Pré requisitos
         offers: Ofertas
+        visible: Publicar
       presentation:
         name: Nome
         presentation_type: Tipo de Apresentação
         description: Descrição
+        visible: Publicar
+        medicine: Medicamento
       pcdt:
         clinical_situation: Situação Clínica
         ministerial_order: Portaria
         order_url: URL da Portaria
         order_date: Data de Emissão da Portaria
+        visible: Publicar
       requirement:
         url: URL
         requirement_type: Tipo de Requisisto
         first_time: Primeira Retirada
         monitoring: Renovação
         cid10: CID 10
+        visible: Publicar
       incremental:
         name: Modelo
         value: Valor

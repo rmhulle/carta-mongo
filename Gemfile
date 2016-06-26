@@ -36,6 +36,7 @@ gem 'icheck-rails'
 gem 'rails_admin_rollincode', :git => 'https://github.com/rmhulle/rails_admin_theme.git'
 gem 'rails_admin'
 gem "rails_admin_import", "~> 1.4"
+gem 'rails_admin_toggleable'
 
 gem 'mina-unicorn', require: false
 gem 'unicorn'

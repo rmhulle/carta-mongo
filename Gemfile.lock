@@ -172,6 +172,8 @@ GEM
       rails_admin (>= 0.6.6)
       rchardet (~> 1.6)
       simple_xlsx_reader (~> 1.0)
+    rails_admin_toggleable (0.6.0)
+      rails_admin
     railties (4.2.6)
       actionpack (= 4.2.6)
       activesupport (= 4.2.6)
@@ -251,6 +253,7 @@ DEPENDENCIES
   rails_admin
   rails_admin_import (~> 1.4)
   rails_admin_rollincode!
+  rails_admin_toggleable
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   spring

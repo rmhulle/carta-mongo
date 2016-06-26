@@ -9,12 +9,15 @@ class Medicine
   field :description, type: String
   field :standard, type: Boolean
   field :incremental_id, type: Integer
+  field :medical_url, type: String
+  field :citzen_url, type: String
+  field :visible, type: Boolean, default: false
 
   has_many :presentations
-  has_many :requirements
-  has_many :pcdts
+  # has_many :requirements
+  has_and_belongs_to_many :pcdts
 
-  accepts_nested_attributes_for :requirements
+  # accepts_nested_attributes_for :pcdts
 
   before_create :set_id
 
@@ -23,15 +26,34 @@ class Medicine
       navigation_label 'Farmácia'
 
       list do
-        exclude_fields :_id, :created_at, :updated_at, :incremental_id
+        field :name
+        field :description
+        field :presentations
+        field :pcdts
+        field :visible, :toggle
       end
 
       edit do
-        exclude_fields :created_at, :updated_at, :incremental_id
+        field :name, :string
+        field :owner, :string
+        field :description
+        field :standard
+        field :presentations
+        field :pcdts
+        field :medical_url, :string
+        field :citzen_url, :string
+
       end
 
       show do
-        exclude_fields :id, :created_at, :updated_at, :incremental_id
+        field :name
+        field :owner
+        field :description
+        field :standard
+        field :presentations
+        field :pcdts
+        field :medical_url
+        field :citzen_url
       end
       # object_label_method do
       #   :custom_label_method

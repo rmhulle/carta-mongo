@@ -26,6 +26,7 @@ RailsAdmin.config do |config|
     export
     import
     bulk_delete
+    toggle
     show
     edit
     delete

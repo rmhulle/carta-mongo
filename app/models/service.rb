@@ -5,8 +5,8 @@ class Service
   field :name, type: String
   field :description, type: String
   field :requirement, type: String
-  field :service_type, type: String
   field :incremental_id, type: Integer
+  field :visible, type: Boolean, default: false
 
 
   has_many :offers
@@ -16,15 +16,25 @@ class Service
     navigation_label 'Serviços e Ofertas'
 
       list do
-        exclude_fields :_id, :requirement, :incremental_id
+        field :name
+        field :visible, :toggle do
+          column_width 100
+        end
       end
 
       edit do
-        exclude_fields :created_at, :updated_at, :offers, :incremental_id
+        field :name, :string
+        field :description
+        field :requirement
+        field :visible
       end
 
       show do
-        exclude_fields :id, :created_at, :updated_at, :incremental_id
+        field :name, :string
+        field :description
+        field :requirement
+        field :offers
+        field :visible
       end
       # object_label_method do
       #   :custom_label_method

@@ -11,6 +11,7 @@ class Place
   field :openHour, type: String
   field :openDay, type: String
   field :incremental_id, type: Integer
+  field :visible, type: Boolean, default: false
 
   has_many :offers
 
@@ -19,16 +20,37 @@ class Place
   rails_admin do
       navigation_label 'Unidades'
       list do
-        exclude_fields :_id,:created_at, :updated_at, :description, :openDay, :openHour, :address, :services, :incremental_id
-
+        field :cnes_id
+        field :name
+        field :owner
+        field :phone
+        field :visible, :toggle
       end
 
       edit do
-        exclude_fields :_id,:created_at, :updated_at, :services, :incremental_id
+        field :cnes_id, :string
+        field :name, :string
+        field :description
+        field :address, :string
+        field :owner, :string
+        field :phone, :string
+        field :openHour, :string
+        field :openDay, :string
+        field :offers
+        field :visible
       end
 
       show do
-        exclude_fields :id, :created_at, :updated_at, :incremental_id
+        field :cnes_id
+        field :name
+        field :owner
+        field :phone
+        field :visible
+        field :description
+        field :address
+        field :openHour
+        field :openDay
+        field :visible
       end
       # object_label_method do
       #   :custom_label_method

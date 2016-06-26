@@ -9,6 +9,7 @@ include Mongoid::Timestamps
   field :avaiableHour, type: String
   field :avaiableDay, type: String
   field :incremental_id, type: Integer
+  field :visible, type: Boolean, default: false
 
   belongs_to :place
   belongs_to :service
@@ -19,14 +20,26 @@ include Mongoid::Timestamps
       navigation_label 'Serviços e Ofertas'
 
       list do
-        exclude_fields :_id, :requirement, :service, :incremental_id
+        field :place
+        field :service
+        field :contact
+        field :visible, :toggle
+
+        # field :requirement
+        # field :avaiableHour
+        # field :avaiableDay
+
+
       end
 
       edit do
-        exclude_fields :created_at, :updated_at, :place, :incremental_id
+        field :contact, :string
+        field :requirement
+        field :avaiableHour, :string
+        field :avaiableDay, :string
         field :service do
-          inline_add true
-          inline_edit true
+          inline_add false
+          inline_edit false
         #  inverse_of :offers
         end
       end
