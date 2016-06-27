@@ -6,7 +6,7 @@ json.array! @medicines do |medicine|
   json.description  medicine.description
   json.standard     medicine.standard
 
-  json.pcdts medicine.pcdts do |pcdt|
+  json.pcdts medicine.pcdts.where(visible: true) do |pcdt|
     json.id                   pcdt.incremental_id
     json.clinical_situation   pcdt.clinical_situation
     json.ministerial_order    pcdt.ministerial_order

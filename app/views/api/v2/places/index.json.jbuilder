@@ -14,7 +14,7 @@ json.set! :place do
   json.openHour     place.openHour
   json.openDays     place.openDay
 
-  json.associations place.offers.each do |offer|
+  json.associations place.offers.where(visible: true) do |offer|
     #Fallback: caso não tenha nenhum dia da semana especifico do servico, utilizar o padrão do local
     if offer.avaiableDay == ""
       json.avaiableDays place.openDay
@@ -47,7 +47,6 @@ json.set! :place do
       json.id           offer.service.incremental_id
       json.name         offer.service.name
       json.description  offer.service.description
-      json.service_type offer.service.service_type
       json.access       offer.service.requirement
 
     end
